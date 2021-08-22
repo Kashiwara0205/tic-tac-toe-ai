@@ -7,13 +7,19 @@ const (
 )
 
 const (
-	BLACK_TURN = iota
-	WHITE_TURN
+	BLACK = iota
+	WHITE
+)
+
+const (
+	WIN = iota
+	LOSE
+	DRAW
 )
 
 type Game struct{
 	board [3][3]int
-	turn int
+	currentPlayer int
 }
 
 func CreateNewGame() Game{
@@ -23,17 +29,17 @@ func CreateNewGame() Game{
 		{NONE, NONE, NONE},
 	}
 
-	return Game{ turn: BLACK_TURN, board: board }
+	return Game{ currentPlayer: BLACK, board: board }
 }
 
 func (g *Game) UpdateToNextTurn(){
-	if g.turn == 0{
-		g.turn = 1
+	if g.currentPlayer == 0{
+		g.currentPlayer = 1
 		return 
 	}
 
-	if g.turn == 1{
-		g.turn = 0
+	if g.currentPlayer == 1{
+		g.currentPlayer = 0
 	}
 }
 
@@ -42,7 +48,7 @@ func (g *Game) getTipStatus(row int, col int) int{
 }
 
 func (g *Game) PlaceTip(row int, col int){
-	g.board[row][col] = g.getCurrentTip()
+	g.board[row][col] = g.getCurrentPlayerTip()
 }
 
 func (g *Game) CanPlaceTip(row int, col int) bool{
@@ -55,7 +61,14 @@ func (g *Game) CanPlaceTip(row int, col int) bool{
 	return false
 }
 
-func (g *Game) CanUpdateToNextTurn() bool{
+func (g *Game) CheckEnd() bool{
+	if g.CheckWin() { return true }
+	if !g.canUpdateToNextTurn() { return true }
+
+	return false
+}
+
+func (g *Game) canUpdateToNextTurn() bool{
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++{
 			if ( NONE == g.getTipStatus(i, j) ){
@@ -68,12 +81,11 @@ func (g *Game) CanUpdateToNextTurn() bool{
 }
 
 func (g *Game) CheckDraw() bool{
-	return ( !g.CanUpdateToNextTurn() && !g.checkWin(BLACK_TIP) && !g.checkWin(WHITE_TIP) )
+	return ( !g.canUpdateToNextTurn() && !g.checkWin(BLACK_TIP) && !g.checkWin(WHITE_TIP) )
 }
 
 func (g *Game) CheckWin() bool {
-	tip := g.getCurrentTip()
-	return g.checkWin(tip)
+	return g.checkWin(g.getCurrentPlayerTip())
 }
 
 func (g *Game) checkWin(tip int) bool{
@@ -91,10 +103,25 @@ func (g *Game) checkWin(tip int) bool{
 	return false
 }
 
-func (g *Game) getCurrentTip() int {
-	if (BLACK_TURN == g.turn){ 
+func  (g *Game) getCurrentPlayerTip() int {
+	return g.getTip(g.currentPlayer)
+}
+
+func (g *Game) getTip(player int) int {
+	if (BLACK == player){ 
 		return BLACK_TIP 
 	}else{ 
 		return WHITE_TIP 
+	}
+}
+
+func (g *Game) GetMatchResult(player int) int {
+	if (g.CheckDraw()){ return DRAW }
+
+	tip := g.getTip(player)
+	if (g.checkWin(tip)){
+		return WIN
+	}else{
+		return LOSE
 	}
 }
