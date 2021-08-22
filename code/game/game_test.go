@@ -8,6 +8,8 @@ import(
 func TestCreateNewGame(t *testing.T){
 	g := CreateNewGame()
 
+	if g.turn != 0{  t.Fatal("failed test") }
+
 	if g.GetTipStatus(0, 0) != 0{ t.Fatal("failed test") }
 	if g.GetTipStatus(0, 1) != 0{ t.Fatal("failed test") }
 	if g.GetTipStatus(0, 2) != 0{ t.Fatal("failed test") }
@@ -35,4 +37,18 @@ func TestGetTipStatusRange(t *testing.T){
 
 	if g.GetTipStatus(0, 2) != 0{ t.Fatal("failed test") }
 	assert.Panics(t, func() { g.GetTipStatus(0, 3) }, "The code did not panic")
+}
+
+func TestUpdateToNextTurn(t *testing.T){
+	g := CreateNewGame()
+
+	if g.turn != 0{  t.Fatal("failed test") }
+
+	g.UpdateToNextTurn()
+
+	if g.turn != 1{  t.Fatal("failed test") }
+
+	g.UpdateToNextTurn()
+
+	if g.turn != 0{  t.Fatal("failed test") }
 }
