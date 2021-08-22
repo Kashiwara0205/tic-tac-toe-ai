@@ -37,9 +37,28 @@ func (g *Game) UpdateToNextTurn(){
 	}
 }
 
-func (g *Game) GetTipStatus(row int, col int) int{
-	if (row > 2 || row < 0){ panic("row is out of range") }
-	if (col > 2 || col < 0){ panic("col is out of range") }
-
+func (g *Game) getTipStatus(row int, col int) int{
 	return g.board[row][col]
+}
+
+func (g *Game) PlaceTip(row int, col int){
+	g.board[row][col] = g.getCurrentTip()
+}
+
+func (g *Game) CanPlaceTip(row int, col int) bool{
+	if (row > 2 || row < 0){ return false }
+	if (col > 2 || col < 0){ return false }
+
+	tip := g.getTipStatus(row, col)
+
+	if (tip == NONE){ return true }
+	return false
+}
+
+func (g *Game) getCurrentTip() int {
+	if (BLACK_TURN == g.turn){ 
+		return BLACK_TIP 
+	}else{ 
+		return WHITE_TIP 
+	}
 }
