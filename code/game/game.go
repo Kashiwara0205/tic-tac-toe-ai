@@ -55,6 +55,23 @@ func (g *Game) CanPlaceTip(row int, col int) bool{
 	return false
 }
 
+func (g *Game) CheckWin() bool{
+	tip := g.getCurrentTip()
+
+	if ( ( tip == g.getTipStatus(0, 0) ) && ( tip == g.getTipStatus(0, 1) ) && ( tip == g.getTipStatus(0, 2) ) ){ return true }
+	if ( ( tip == g.getTipStatus(1, 0) ) && ( tip == g.getTipStatus(1, 1) ) && ( tip == g.getTipStatus(1, 2) ) ){ return true }
+	if ( ( tip == g.getTipStatus(2, 0) ) && ( tip == g.getTipStatus(2, 1) ) && ( tip == g.getTipStatus(2, 2) ) ){ return true }
+
+	if ( ( tip == g.getTipStatus(0, 0) ) && ( tip == g.getTipStatus(1, 0) ) && ( tip == g.getTipStatus(2, 0) ) ){ return true }
+	if ( ( tip == g.getTipStatus(0, 1) ) && ( tip == g.getTipStatus(1, 1) ) && ( tip == g.getTipStatus(2, 1) ) ){ return true }
+	if ( ( tip == g.getTipStatus(0, 2) ) && ( tip == g.getTipStatus(1, 2) ) && ( tip == g.getTipStatus(2, 2) ) ){ return true }
+
+	if ( ( tip == g.getTipStatus(0, 0) ) && ( tip == g.getTipStatus(1, 1) ) && ( tip == g.getTipStatus(2, 2) ) ){ return true }
+	if ( ( tip == g.getTipStatus(0, 2) ) && ( tip == g.getTipStatus(1, 1) ) && ( tip == g.getTipStatus(2, 0) ) ){ return true }
+
+	return false
+}
+
 func (g *Game) getCurrentTip() int {
 	if (BLACK_TURN == g.turn){ 
 		return BLACK_TIP 
