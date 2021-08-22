@@ -55,9 +55,28 @@ func (g *Game) CanPlaceTip(row int, col int) bool{
 	return false
 }
 
-func (g *Game) CheckWin() bool{
-	tip := g.getCurrentTip()
+func (g *Game) CanUpdateToNextTurn() bool{
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++{
+			if ( NONE == g.getTipStatus(i, j) ){
+				return true
+			}
+		}
+	}
 
+	return false
+}
+
+func (g *Game) CheckDraw() bool{
+	return ( !g.CanUpdateToNextTurn() && !g.checkWin(BLACK_TIP) && !g.checkWin(WHITE_TIP) )
+}
+
+func (g *Game) CheckWin() bool {
+	tip := g.getCurrentTip()
+	return g.checkWin(tip)
+}
+
+func (g *Game) checkWin(tip int) bool{
 	if ( ( tip == g.getTipStatus(0, 0) ) && ( tip == g.getTipStatus(0, 1) ) && ( tip == g.getTipStatus(0, 2) ) ){ return true }
 	if ( ( tip == g.getTipStatus(1, 0) ) && ( tip == g.getTipStatus(1, 1) ) && ( tip == g.getTipStatus(1, 2) ) ){ return true }
 	if ( ( tip == g.getTipStatus(2, 0) ) && ( tip == g.getTipStatus(2, 1) ) && ( tip == g.getTipStatus(2, 2) ) ){ return true }

@@ -160,3 +160,47 @@ func TestCheckWin(t *testing.T){
 	g.PlaceTip(2, 2)
 	if !g.CheckWin(){  t.Fatal("failed test") }
 }
+
+func TestCanUpdateToNextTurn(t *testing.T){
+	var g = CreateNewGame()
+
+	if !g.CanUpdateToNextTurn(){  t.Fatal("failed test") }
+
+	g.PlaceTip(0, 0)
+	g.PlaceTip(0, 1)
+	g.PlaceTip(0, 2)
+
+	if !g.CanUpdateToNextTurn(){  t.Fatal("failed test") }
+
+	g.PlaceTip(1, 0)
+	g.PlaceTip(1, 1)
+	g.PlaceTip(1, 2)
+
+	if !g.CanUpdateToNextTurn(){  t.Fatal("failed test") }
+
+	g.PlaceTip(2, 0)
+	g.PlaceTip(2, 1)
+	g.PlaceTip(2, 2)
+
+	if g.CanUpdateToNextTurn(){  t.Fatal("failed test") }
+}
+
+func TestCheckDraw(t *testing.T){
+	var g = CreateNewGame()
+
+	if g.CheckDraw(){ t.Fatal("failed test") }
+
+	g.PlaceTip(0, 0)
+	g.PlaceTip(0, 1)
+	g.PlaceTip(1, 2)
+	g.PlaceTip(2, 0)
+	g.PlaceTip(2, 2)
+
+	g.UpdateToNextTurn()
+	g.PlaceTip(0, 2)
+	g.PlaceTip(1, 0)
+	g.PlaceTip(1, 1)
+	g.PlaceTip(2, 1)
+
+	if !g.CheckDraw(){ t.Fatal("failed test") }
+}
