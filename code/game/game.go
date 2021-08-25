@@ -32,6 +32,14 @@ func CreateNewGame() Game{
 	return Game{ currentPlayer: BLACK, board: board }
 }
 
+func (g *Game) GetBoard() [3][3]int{
+	return g.board
+}
+
+func (g *Game) GetCurrentPlayer() int{
+	return g.currentPlayer
+}
+
 func (g *Game) UpdateToNextTurn(){
 	if g.currentPlayer == 0{
 		g.currentPlayer = 1

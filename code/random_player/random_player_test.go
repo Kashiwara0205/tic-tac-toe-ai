@@ -1,6 +1,8 @@
 package random_player
 
 import(
+	"code/game"
+	"code/game_status"
 	"testing"
 )
 
@@ -12,28 +14,21 @@ func (r *MockRandomizer) createValue() int{
 func TestSelectPosition(t *testing.T){
 	var player = createRandomPlayer()
 
-	var board = [3][3]int{
-		{0, 0, 0},
-		{0, 0, 0},
-		{0, 0, 0},
-	}
+	g := game.CreateNewGame()
+	var status = game_status.CreateGameStatus(g)
 
-	var row, col = player.SelectPosition(board)
+	var row, col = player.SelectPosition(status)
 	
 	if row != 0{ t.Fatal("faied test") }
 	if col != 0{ t.Fatal("faied test") }
 
-
 	randomizer := &MockRandomizer{}
 	player = RandomPlayer{ randomizer: randomizer }
 
-	board = [3][3]int{
-		{1, 0, 0},
-		{0, 0, 0},
-		{0, 0, 0},
-	}
+	g.PlaceTip(0, 0)
 
-	row, col = player.SelectPosition(board)
+	status = game_status.CreateGameStatus(g)
+	row, col = player.SelectPosition(status)
 	
 	if row != 1{ t.Fatal("faied test") }
 	if col != 1{ t.Fatal("faied test") }
