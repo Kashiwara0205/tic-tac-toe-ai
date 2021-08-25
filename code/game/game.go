@@ -32,6 +32,10 @@ func CreateNewGame() Game{
 	return Game{ playerTurn: BLACK, board: board }
 }
 
+func (g *Game) CopyGame() Game{
+	return Game{ playerTurn: g.GetPlayerTurn(), board: g.GetBoard() }
+}
+
 func (g *Game) GetBoard() [3][3]int{
 	return g.board
 }
