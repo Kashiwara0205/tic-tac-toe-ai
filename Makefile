@@ -7,4 +7,3 @@ gorun:
 gotest:
 	sudo docker exec -ti code go test ./game -v
 	sudo docker exec -ti code go test ./random_player -v
-	sudo docker exec -ti code go test ./game_status -v

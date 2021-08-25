@@ -2,7 +2,6 @@ package random_player
 
 import(
 	"code/game"
-	"code/game_status"
 	"testing"
 )
 
@@ -15,9 +14,7 @@ func TestSelectPosition(t *testing.T){
 	var player = createRandomPlayer()
 
 	g := game.CreateNewGame()
-	var status = game_status.CreateGameStatus(g)
-
-	var row, col = player.SelectPosition(status)
+	var row, col = player.SelectPosition(g)
 	
 	if row != 0{ t.Fatal("faied test") }
 	if col != 0{ t.Fatal("faied test") }
@@ -26,9 +23,7 @@ func TestSelectPosition(t *testing.T){
 	player = RandomPlayer{ randomizer: randomizer }
 
 	g.PlaceTip(0, 0)
-
-	status = game_status.CreateGameStatus(g)
-	row, col = player.SelectPosition(status)
+	row, col = player.SelectPosition(g)
 	
 	if row != 1{ t.Fatal("faied test") }
 	if col != 1{ t.Fatal("faied test") }

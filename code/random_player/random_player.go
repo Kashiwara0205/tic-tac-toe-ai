@@ -1,7 +1,7 @@
 package random_player
 
 import(
-	"code/game_status"
+	"code/game"
 	"math/rand"
 )
 
@@ -23,11 +23,11 @@ func createRandomPlayer() RandomPlayer{
 	return RandomPlayer{ randomizer: randomizer }
 }
 
-func (player *RandomPlayer) SelectPosition(status game_status.GameStatus) (int, int) {
+func (player *RandomPlayer) SelectPosition(g game.Game) (int, int) {
 	var row = 0
 	var col = 0
 
-	for status.ExistsTip(row, col){
+	for !g.CanPlaceTip(row, col){
 		row = player.randomizer.createValue()
 		col = player.randomizer.createValue()
 	}
