@@ -36,7 +36,7 @@ func (g *Game) GetBoard() [3][3]int{
 	return g.board
 }
 
-func (g *Game) GetCurrentPlayer() int{
+func (g *Game) GetPlayerTurn() int{
 	return g.playerTurn
 }
 
