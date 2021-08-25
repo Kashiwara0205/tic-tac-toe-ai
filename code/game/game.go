@@ -96,6 +96,10 @@ func (g *Game) CheckWin() bool {
 	return g.checkWin(g.getCurrentPlayerTip())
 }
 
+func (g *Game) CheckLose() bool {
+	return g.checkWin(g.getOpponentPlayerTip())
+}
+
 func (g *Game) checkWin(tip int) bool{
 	if ( ( tip == g.getTipStatus(0, 0) ) && ( tip == g.getTipStatus(0, 1) ) && ( tip == g.getTipStatus(0, 2) ) ){ return true }
 	if ( ( tip == g.getTipStatus(1, 0) ) && ( tip == g.getTipStatus(1, 1) ) && ( tip == g.getTipStatus(1, 2) ) ){ return true }
@@ -113,6 +117,17 @@ func (g *Game) checkWin(tip int) bool{
 
 func  (g *Game) getCurrentPlayerTip() int {
 	return g.getTip(g.playerTurn)
+}
+
+func  (g *Game) getOpponentPlayerTip() int {
+	var opponent = 0
+	if (BLACK == g.playerTurn){ 
+		opponent = WHITE
+	}else{ 
+		opponent = BLACK 
+	}
+
+	return g.getTip(opponent)
 }
 
 func (g *Game) getTip(player int) int {
