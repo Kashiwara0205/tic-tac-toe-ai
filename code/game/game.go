@@ -19,7 +19,7 @@ const (
 
 type Game struct{
 	board [3][3]int
-	currentPlayer int
+	playerTurn int
 }
 
 func CreateNewGame() Game{
@@ -29,7 +29,7 @@ func CreateNewGame() Game{
 		{NONE, NONE, NONE},
 	}
 
-	return Game{ currentPlayer: BLACK, board: board }
+	return Game{ playerTurn: BLACK, board: board }
 }
 
 func (g *Game) GetBoard() [3][3]int{
@@ -37,17 +37,17 @@ func (g *Game) GetBoard() [3][3]int{
 }
 
 func (g *Game) GetCurrentPlayer() int{
-	return g.currentPlayer
+	return g.playerTurn
 }
 
 func (g *Game) UpdateToNextTurn(){
-	if g.currentPlayer == 0{
-		g.currentPlayer = 1
+	if g.playerTurn == 0{
+		g.playerTurn = 1
 		return 
 	}
 
-	if g.currentPlayer == 1{
-		g.currentPlayer = 0
+	if g.playerTurn == 1{
+		g.playerTurn = 0
 	}
 }
 
@@ -112,7 +112,7 @@ func (g *Game) checkWin(tip int) bool{
 }
 
 func  (g *Game) getCurrentPlayerTip() int {
-	return g.getTip(g.currentPlayer)
+	return g.getTip(g.playerTurn)
 }
 
 func (g *Game) getTip(player int) int {

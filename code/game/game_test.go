@@ -7,7 +7,7 @@ import(
 func TestCreateNewGame(t *testing.T){
 	g := CreateNewGame()
 
-	if g.currentPlayer != 0{  t.Fatal("failed test") }
+	if g.playerTurn != 0{  t.Fatal("failed test") }
 
 	if g.getTipStatus(0, 0) != 0{ t.Fatal("failed test") }
 	if g.getTipStatus(0, 1) != 0{ t.Fatal("failed test") }
@@ -34,15 +34,15 @@ func TestgetTipStatusRange(t *testing.T){
 func TestUpdateToNextTurn(t *testing.T){
 	g := CreateNewGame()
 
-	if g.currentPlayer != 0{  t.Fatal("failed test") }
+	if g.playerTurn != 0{  t.Fatal("failed test") }
 
 	g.UpdateToNextTurn()
 
-	if g.currentPlayer != 1{  t.Fatal("failed test") }
+	if g.playerTurn != 1{  t.Fatal("failed test") }
 
 	g.UpdateToNextTurn()
 
-	if g.currentPlayer != 0{  t.Fatal("failed test") }
+	if g.playerTurn != 0{  t.Fatal("failed test") }
 }
 
 func TestgetCurrentTip(t *testing.T){

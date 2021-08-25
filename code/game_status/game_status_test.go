@@ -9,7 +9,7 @@ func TestCreateGameStatus(t *testing.T){
 	g := game.CreateNewGame()
 	status := CreateGameStatus(g)
 
-	if status.currentPlayer != 0{  t.Fatal("failed test") }
+	if status.playerTurn != 0{  t.Fatal("failed test") }
 
 	if status.board[0][0] != 0{ t.Fatal("failed test") }
 	if status.board[0][1] != 0{ t.Fatal("failed test") }

@@ -7,17 +7,17 @@ import(
 // A class that conveys the game status to each player
 type GameStatus struct{
 	board [3][3] int
-	currentPlayer int
+	playerTurn int
 }
 
 func CreateGameStatus(g game.Game) GameStatus{
-	return GameStatus{ board: g.GetBoard(), currentPlayer: g.GetCurrentPlayer() }
+	return GameStatus{ board: g.GetBoard(), playerTurn: g.GetCurrentPlayer() }
 }
 
 func (g *GameStatus) ExistsTip(row int, col int) bool{
 	return game.NONE != g.board[row][col]
 }
 
-func (g *GameStatus) GetCurrentPlayer() int{
-	return g.currentPlayer
+func (g *GameStatus) GetPlayerTurn() int{
+	return g.playerTurn
 }
