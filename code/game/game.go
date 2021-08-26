@@ -1,5 +1,9 @@
 package game
 
+import (
+	"fmt"
+)
+
 const (
 	NONE = iota
 	BLACK_TIP
@@ -75,6 +79,7 @@ func (g *Game) CanPlaceTip(row int, col int) bool{
 
 func (g *Game) CheckEnd() bool{
 	if g.CheckWin() { return true }
+	if g.CheckLose() { return true }
 	if !g.canUpdateToNextTurn() { return true }
 
 	return false
@@ -150,5 +155,25 @@ func (g *Game) GetMatchResult(player int) int {
 		return WIN
 	}else{
 		return LOSE
+	}
+}
+
+func (g *Game) PrintBoard(){
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++{
+
+			if ( NONE == g.getTipStatus(i, j) ){
+				fmt.Printf(" N ")
+			}
+
+			if ( BLACK_TIP == g.getTipStatus(i, j) ){
+				fmt.Printf(" x ")
+			}
+
+			if ( WHITE_TIP == g.getTipStatus(i, j) ){
+				fmt.Printf(" o ")
+			}
+		}
+		fmt.Printf("\n")
 	}
 }

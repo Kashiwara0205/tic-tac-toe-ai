@@ -11,7 +11,7 @@ func (r *MockRandomizer) createValue() int{
 }
 
 func TestSelectPosition(t *testing.T){
-	var player = createRandomPlayer()
+	var player = CreateRandomPlayer()
 
 	g := game.CreateNewGame()
 	var row, col = player.SelectPosition(g)

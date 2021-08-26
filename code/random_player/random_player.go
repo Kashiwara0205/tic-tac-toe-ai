@@ -1,12 +1,14 @@
 package random_player
 
 import(
+	"time"
 	"code/game"
 	"math/rand"
 )
 
 type Randomizer struct{}
 func (r *Randomizer) createValue() int{
+	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(3)
 }
 
@@ -18,7 +20,7 @@ type RandomPlayer struct{
 	randomizer RandomizerInterface
 }
 
-func createRandomPlayer() RandomPlayer{
+func CreateRandomPlayer() RandomPlayer{
 	randomizer := &Randomizer{}
 	return RandomPlayer{ randomizer: randomizer }
 }
