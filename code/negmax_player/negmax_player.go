@@ -2,6 +2,7 @@ package negmax_player
 
 import(
 	"code/game"
+	"code/utils"
 )
 
 type NegMaxPlayer struct{
@@ -41,24 +42,11 @@ func (player *NegMaxPlayer) negmax(g game.Game, depth int) int {
 		}
 	}
 
-	maxScoreIdx := getMaxIdx(scores)
+	maxScoreIdx := utils.GetMaxIdx(scores)
 	player.bestPosition[0] = positions[maxScoreIdx][0]
 	player.bestPosition[1] = positions[maxScoreIdx][1]
 
 	return scores[maxScoreIdx]
-}
-
-func getMaxIdx(slice []int) int {
-	max := -9999999
-	maxIdx := -1
-	for idx, s := range slice {
-		if max < s {
-			max = s
-			maxIdx = idx
-		}
-	}
-
-	return maxIdx
 }
 
 func evaluate(g game.Game, depth int) int {

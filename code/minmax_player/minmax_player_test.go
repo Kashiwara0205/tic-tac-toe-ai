@@ -177,19 +177,3 @@ func TestminmaxPlayer(t *testing.T){
 
 	if score != -4 { t.Fatal("faied test") }
 }
-
-func TestGetMaxIdx(t *testing.T){
-	var slice = [] int{1, 2, 3}
-	if 2 != getMaxIdx(slice) { t.Fatal("faied test") }
-
-	slice = [] int{1}
-	if 0 != getMaxIdx(slice) { t.Fatal("faied test") }
-}
-
-func TestGetMinIdx(t *testing.T){
-	var slice = [] int{1, 2, 3}
-	if 0 != getMinIdx(slice) { t.Fatal("faied test") }
-
-	slice = [] int{3, 2, 1}
-	if 2 != getMinIdx(slice) { t.Fatal("faied test") }
-}

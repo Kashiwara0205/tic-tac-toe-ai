@@ -178,13 +178,4 @@ func TestNegMaxPlayer(t *testing.T){
 	g.UpdateToNextTurn()
 	score = evaluate(g, 6)
 	if score != -4 { t.Fatal("faied test") }
-
-}
-
-func TestGetMaxIdx(t *testing.T){
-	var slice = [] int{1, 2, 3}
-	if 2 != getMaxIdx(slice) { t.Fatal("faied test") }
-
-	slice = [] int{1}
-	if 0 != getMaxIdx(slice) { t.Fatal("faied test") }
 }

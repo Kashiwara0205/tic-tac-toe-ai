@@ -2,6 +2,7 @@ package minmax_player
 
 import(
 	"code/game"
+	"code/utils"
 )
 
 type MinMaxPlayer struct{
@@ -42,44 +43,18 @@ func (player *MinMaxPlayer) minmax(g game.Game, depth int, myTurn int) int {
 	}
 
 	if ( myTurn == g.GetPlayerTurn() ){
-		maxScoreIdx := getMaxIdx(scores)
+		maxScoreIdx := utils.GetMaxIdx(scores)
 		player.bestPosition[0] = positions[maxScoreIdx][0]
 		player.bestPosition[1] = positions[maxScoreIdx][1]
 
 		return scores[maxScoreIdx]
 	}else{
-		minScoreIdx := getMinIdx(scores)
+		minScoreIdx := utils.GetMinIdx(scores)
 		player.bestPosition[0] = positions[minScoreIdx][0]
 		player.bestPosition[1] = positions[minScoreIdx][1]
 		
 		return scores[minScoreIdx]
 	}
-}
-
-func getMaxIdx(slice []int) int {
-	max := -9999999
-	maxIdx := -1
-	for idx, s := range slice {
-		if max < s {
-			max = s
-			maxIdx = idx
-		}
-	}
-
-	return maxIdx
-}
-
-func getMinIdx(slice []int) int {
-	min := 9999999
-	minIdx := -1
-	for idx, s := range slice {
-		if min > s {
-			min = s
-			minIdx = idx
-		}
-	}
-
-	return minIdx
 }
 
 func evaluate(g game.Game, depth int, myTurn int) int {
