@@ -7,7 +7,6 @@ import (
 	"fmt"
 )
 
-
 type PlayerInterface interface{
 	SelectPosition(g game.Game) (int, int)
 }
