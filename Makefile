@@ -9,4 +9,5 @@ gotest:
 	sudo docker exec -ti code go test ./random_player -v
 	sudo docker exec -ti code go test ./minmax_player -v
 	sudo docker exec -ti code go test ./negmax_player -v
+	sudo docker exec -ti code go test ./alphabeta_player -v
 	sudo docker exec -ti code go test ./utils -v
